@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Diarista extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'nome_completo', 
+        'cpf', 
+        'email', 
+        'telefone', 
+        'logradouro', 
+        'numero', 
+        'bairro', 
+        'cidade', 
+        'complemento', 
+        'cep', 
+        'estado', 
+        'codigo_ibge', 
+        'foto_usuario', 
+        'created_at', 
+        'updated_at'
+    ];
+}
