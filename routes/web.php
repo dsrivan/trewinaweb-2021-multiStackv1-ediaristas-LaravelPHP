@@ -28,3 +28,13 @@ Route::get('/diaristas/create', [DiaristaController::class, 'create'])->name('di
 
 // requisição de gravação via POST
 Route::post('/diaristas', [DiaristaController::class, 'store'])->name('diaristas.store');
+
+// requisição para edição de diarista
+Route::get('/diaristas/{id}/edit', [DiaristaController::class, 'edit'])->name('diaristas.edit');
+
+// rota para salvar a alteração no cadastro da diarista
+Route::put('/diaristas/{id}', [DiaristaController::class, 'update'])->name('diaristas.update');
+
+// rota para deletar um cadastro de diarista
+// obs: poderia usar o delete mas seria necessário utilizar um formulário, e com destroy não
+Route::get('/diaristas/{id}', [DiaristaController::class, 'destroy'])->name('diaristas.destroy');

@@ -39,43 +39,20 @@
                 <nav class="bg-light py-2 px-4 mb-4" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('diaristas.index') }}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Editar</li>
                     </ol>
                 </nav>
-                <h2>Página inicial e-diaristas</h2>
+                <h2>Editar diarista</h2>
             </div>
         </div>
         <div class="row">
-            <div class="col-12 mb-5">
-                <a href="{{ route('diaristas.create') }}" class="btn btn-primary py-3 px-5">Nova diarista</a>
-            </div>
-            <div class="col-12">
-                <table class="table">
-                    <thead class="bg-dark text-light">
-                        <tr>
-                            <th class="py-3" width="15%" scope="col">ID</th>
-                            <th class="py-3" width="40%" scope="col">Nome</th>
-                            <th class="py-3" width="25%" scope="col">Telefone</th>
-                            <th class="py-3" width="20%" scope="col">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($diaristas as $diarista)
-                            <tr>
-                                <th scope="row">{{ $diarista->id }}</th>
-                                <td>{{ $diarista->nome_completo}}</td>
-                                <td class="tdTelefone">{{ $diarista->telefone}}</td>
-                                <td>
-                                    <a href="{{ route('diaristas.edit', $diarista->id) }}" class="btn btn-outline-primary">Editar</a>
-                                    <a onclick="return confirm('Confirme a remoção deste registro')" href="{{ route('diaristas.destroy', $diarista->id) }}" class="btn btn-outline-danger">Remover</a>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <th class="text-center" scope="row" colspan="4">Nenhuma diarista encontrada</th>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+            <div class="col-12 mt-4">
+                <form action="{{ route('diaristas.update', $diarista) }}" method="POST" enctype="multipart/form-data">
+                    @method('PUT')
+
+                    @include('_form')
+                    
+                </form>
             </div>
         </div>
     </div>
@@ -90,7 +67,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script tupe="text/javascript">
         $(document).ready(function () {
-            $('.tdTelefone').mask('(00) 00000-0000');
+            $('#cep').mask('00000-000');
+            $('#telefone').mask('(00) 00000-0000');
+            $('#cpf').mask('000.000.000-00', { reverse: true });
         });
     </script>
   </body>
