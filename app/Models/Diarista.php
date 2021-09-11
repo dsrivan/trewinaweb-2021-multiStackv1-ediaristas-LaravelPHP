@@ -38,8 +38,14 @@ class Diarista extends Model
     protected $visible = [
         'nome_completo',
         'cidade', 
-        'foto_usuario'
+        'foto_usuario',
+        'reputacao'
     ];
+
+    /*
+        adiciona campos virtuais ao json de response
+    */
+    protected $appends = ['reputacao'];
 
     /*
         monta a url completa de onde está salva a foto
@@ -77,6 +83,19 @@ class Diarista extends Model
             para:../storage/app/public
         */
         return config('app.url') . '/' . $valor;
+    }
+
+    public function getReputacaoAttribute()
+    {
+        /*
+            dado randômico simbolizando a reputação do(a) diarista
+
+            OBS: como não existe esse campo no retorno da request
+            então é preciso:
+            1) adicionar manualmente no $visible (serialização)
+            2) criar um atributo: 'apprends'
+        */
+        return mt_rand(1, 5);
     }
 
     static public function buscaPorCodigoIbge(int $codigoIbge)
