@@ -40,25 +40,30 @@
         <div class="row">
             <div class="col-12 text-center py-4 mb-3">
                 <nav class="bg-light py-2 px-4 mb-4" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{{ route('diaristas.index') }}">Home</a></li>
+                    <ol class="breadcrumb py-2 mb-0">
+                        <li class="breadcrumb-item">
+                            <a href="/">
+                                <span class="material-icons">home</span>
+                            </a>
+                        </li>
                     </ol>
                 </nav>
-                <h2>Página inicial e-diaristas</h2>
+                <h2>Quadro de Diaristas</h2>
             </div>
         </div>
         <div class="row">
             <div class="col-12 mb-5">
-                <a href="{{ route('diaristas.create') }}" class="btn btn-outline-dark py-3 px-5">Nova diarista</a>
+                <a href="{{ route('diaristas.create') }}" class="btn btn-outline-primary py-3 px-5">Nova diarista</a>
             </div>
-            <div class="col-12">
-                <table class="table table-hover">
-                    <thead class="bg-primary text-light">
+            <div class="col-12" style="max-height: 600px; overflow: auto;">
+                <table class="table table-hover border">
+                    <thead class="bg-dark text-light" style="position: sticky; top: 0;">
                         <tr>
-                            <th class="py-3" width="15%" scope="col">ID</th>
-                            <th class="py-3" width="40%" scope="col">Nome</th>
-                            <th class="py-3" width="25%" scope="col">Telefone</th>
-                            <th class="py-3" width="20%" scope="col">Ações</th>
+                            <th class="py-3" width="15%" scope="col">#</th>
+                            <th class="py-3" width="33%" scope="col">NOME</th>
+                            <th class="py-3" width="22%" scope="col">TELEFONE</th>
+                            <th class="py-3" width="15%" scope="col">REPUTAÇÃO</th>
+                            <th class="py-3" width="15%" scope="col">AÇÕES</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,13 +71,18 @@
                             <tr>
                                 <th scope="row">{{ $diarista->id }}</th>
                                 <td>{{ $diarista->nome_completo}}</td>
-                                <td class="tdTelefone">{{ $diarista->telefone}}</td>
+                                <td>{{ \Clemdesign\PhpMask\Mask::apply($diarista->telefone, '(00) 00000-0000') }}</td>
                                 <td>
-                                    <a href="{{ route('diaristas.edit', $diarista->id) }}" class="btn btn-outline-dark" style="display: inline-flex; align-items: center; justify-content: center;" >
-                                        <span class="material-icons">edit</span>
+                                    @for ($i = 0; $i < $diarista->reputacao; $i++)
+                                        <span class="material-icons text-warning" style="font-size: 16px;">star</span>
+                                    @endfor
+                                </td>
+                                <td>
+                                    <a href="{{ route('diaristas.edit', $diarista->id) }}" class="btn btn-outline-primary border-0" style="display: inline-flex; align-items: center; justify-content: center; padding: 5px;" >
+                                        <span class="material-icons" style="font-size: 18px;">edit</span>
                                     </a>
-                                    <a onclick="return confirm('Confirme a remoção deste registro')" href="{{ route('diaristas.destroy', $diarista->id) }}" class="btn btn-outline-danger" style="display: inline-flex; align-items: center; justify-content: center;" >
-                                        <span class="material-icons">delete</span>
+                                    <a onclick="return confirm('Confirme a remoção deste registro')" href="{{ route('diaristas.destroy', $diarista->id) }}" class="btn btn-outline-danger border-0" style="display: inline-flex; align-items: center; justify-content: center; padding: 5px;" >
+                                        <span class="material-icons" style="font-size: 18px;">delete</span>
                                     </a>
                                 </td>
                             </tr>
@@ -84,6 +94,9 @@
                     </tbody>
                 </table>
             </div>
+            <div class="col-12 my-3">
+                <span class="text-muted">Total de Diaristas: <strong>{{ count($diaristas) }}</strong></span>
+            </div>
         </div>
     </div>
 
@@ -92,13 +105,5 @@
 
     <!-- JQuery  -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
-    <!-- JQuery Mask -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script tupe="text/javascript">
-        $(document).ready(function () {
-            $('.tdTelefone').mask('(00) 00000-0000');
-        });
-    </script>
   </body>
 </html>

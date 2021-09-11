@@ -2,9 +2,9 @@
                     
                     @if (isset($diarista['foto_usuario']))
                     <div class="row">
-                        <div class="col-12 mb-5">
+                        <div class="col-12 mb-5 text-center text-md-start">
                             <h4 class="form-label">Foto Diarista</h4>
-                                <img src="{{ @$diarista->foto_usuario }}" alt="Foto Diarista" class="img-fluid" width="250" height="250">
+                                <img src="{{ @$diarista->foto_usuario }}" alt="Foto Diarista" class="img-fluid shadow bg-body rounded" width="250" height="250">
                             </div>
                         </div>
                     @endif
@@ -37,32 +37,32 @@
                             <label for="numero" class="form-label">Número</label>
                             <input type="text" value="{{ @$diarista->numero }}" class="form-control" id="numero" name="numero" required maxlength="10" placeholder="123123">
                         </div>
-                        <div class="mb-3 col-7 col-md-3">
+                        <div class="mb-3 col-12 col-md-5">
                             <label for="complemento" class="form-label">Complemento</label>
                             <input type="text" value="{{ @$diarista->complemento }}" class="form-control" id="complemento" name="complemento" maxlength="50">
                         </div>
-                        <div class="mb-3 col-5 col-md-2">
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-5 col-md-3">
                             <label for="cep" class="form-label">Cep</label>
                             <input type="text" value="{{ @$diarista->cep }}" class="form-control" id="cep" name="cep" maxlength="9" placeholder="12312-123">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="mb-3 col-12 col-md-3">
+                        <div class="mb-3 col-7 col-md-3">
                             <label for="bairro" class="form-label">Bairro</label>
                             <input type="text" value="{{ @$diarista->bairro }}" class="form-control" id="bairro" name="bairro" required maxlength="50">
                         </div>
-                        <div class="mb-3 col-12 col-md-5">
+                        <div class="mb-3 col-9 col-md-4">
                             <label for="cidade" class="form-label">Cidade</label>
                             <input type="text" value="{{ @$diarista->cidade }}" class="form-control" id="cidade" name="cidade" required maxlength="50">
                         </div>
-                        <div class="mb-3 col-4 col-md-2">
+                        <div class="mb-3 col-3 col-md-2">
                             <label for="estado" class="form-label">Estado</label>
                             <input type="text" value="{{ @$diarista->estado }}" class="form-control" id="estado" name="estado" required maxlength="2" placeholder="AA">
                         </div>
-                        <div class="mb-3 col-8 col-md-2">
+                        <!-- <div class="mb-3 col-8 col-md-2">
                             <label for="codigo_ibge" class="form-label">Código IBGE</label>
                             <input type="text" value="{{ @$diarista->codigo_ibge }}" class="form-control" id="codigo_ibge" name="codigo_ibge" required placeholder="123123">
-                        </div>
+                        </div> -->
                     </div>
                     <div class="row">
                         <div class="mb-3">
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="mb-3 mt-5 text-end">
-                            <button type="submit" class="btn btn-primary w-25 py-4 px-5">Salvar</button>
+                        <div class="col-12 mb-3 mt-5 text-center">
+                            <button type="submit" class="btn btn-primary w-50 py-4 px-5">Salvar</button>
                         </div>
                     </div>

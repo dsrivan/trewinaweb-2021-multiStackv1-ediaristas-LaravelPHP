@@ -2,11 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DiaristaRequest; // contém as regras para os campos do form
 use App\Models\Diarista;
+use App\Services\ViaCEP;
 use Illuminate\Http\Request;
 
 class DiaristaController extends Controller
 {
+    /*
+        até a versão 7.4 do PHP, fazer dessa forma:
+
+        protected ViaCEP $viaCep;
+        public function __construct(
+            ViaCEP $viaCep
+        ) {
+            $this->viaCep = $viaCep;
+        }
+    */
+
+    /*
+        acima da versão 8 do PHP, fazer dessa forma:
+        utiliza o conceito de 'promoção de propriedade no construtor'
+    */
+    public function __construct(
+        protected ViaCEP $viaCep
+    ) {}
+
     // exibe a view com os dados (diaristas)
     public function index()
     {
@@ -24,7 +45,7 @@ class DiaristaController extends Controller
     }
 
     // receberá uma request e atribui à var request
-    public function store(Request $request)
+    public function store(DiaristaRequest $request)
     {
         // exibe todos os dados recebidos
         //dd($request->all());
@@ -39,6 +60,13 @@ class DiaristaController extends Controller
         $dados['cpf'] = str_replace(['.', '-'], '', $dados['cpf']);
         $dados['cep'] = str_replace(['-'], '', $dados['cep']);
         $dados['telefone'] = str_replace(['(', ')', ' ', '-'], '', $dados['telefone']);
+        /*
+            preencher o código IBGE automaticamente
+
+            OBS: como o ViaCEP vai ser utilizado em 1+ lugares,
+            então ele é instanciado no construtor da classe
+        */
+        $dados['codigo_ibge'] = $this->viaCep->buscar($dados['cep'])['ibge'];
 
         // o envio feito é de ARRAY, mas como a var dados já é um array, então ok
         Diarista::create($dados);
@@ -60,7 +88,7 @@ class DiaristaController extends Controller
     }
     
     // rota para gravar a alteração do cadastro
-    public function update(int $id, Request $request)
+    public function update(DiaristaRequest $request, int $id)
     {
         // busca no banco, retorna um 404 se não encontrar 
         $diarista = Diarista::findOrFail($id);
@@ -72,6 +100,13 @@ class DiaristaController extends Controller
         $dados['cpf'] = str_replace(['.', '-'], '', $dados['cpf']);
         $dados['cep'] = str_replace(['-'], '', $dados['cep']);
         $dados['telefone'] = str_replace(['(', ')', ' ', '-'], '', $dados['telefone']);
+        /*
+            preencher o código IBGE automaticamente
+
+            OBS: como o ViaCEP vai ser utilizado em 1+ lugares,
+            então ele é instanciado no construtor da classe
+        */
+        $dados['codigo_ibge'] = $this->viaCep->buscar($dados['cep'])['ibge'];
 
         // verifica se há uma foto sendo enviada na requisição
         if ( $request->hasFile('foto_usuario'))
