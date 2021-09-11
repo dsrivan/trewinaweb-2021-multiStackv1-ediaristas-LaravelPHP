@@ -3,7 +3,7 @@
                     <div class="row">
                         <div class="col-12 mb-5">
                             <h4 class="form-label">Foto Diarista</h4>
-                            <img src="{{ url('storage/app/'.$diarista->foto_usuario) }}" alt="Foto Diarista" class="img-fluid" width="250" height="250">
+                            <img src="{{ url('storage/app/'.@$diarista->foto_usuario) }}" alt="Foto Diarista" class="img-fluid" width="250" height="250">
                         </div>
                     </div>
                     <div class="row">
