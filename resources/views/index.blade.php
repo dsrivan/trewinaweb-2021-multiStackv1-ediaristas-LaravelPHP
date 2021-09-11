@@ -11,9 +11,9 @@
     <title>E-Diaristas</title>
   </head>
   <body>
-    <header class="bg-dark mb-4 py-3">
+    <header class="bg-primary mb-4 py-3">
         <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="{{ route('diaristas.index') }}">e-diaristas</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,11 +46,11 @@
         </div>
         <div class="row">
             <div class="col-12 mb-5">
-                <a href="{{ route('diaristas.create') }}" class="btn btn-primary py-3 px-5">Nova diarista</a>
+                <a href="{{ route('diaristas.create') }}" class="btn btn-outline-dark py-3 px-5">Nova diarista</a>
             </div>
             <div class="col-12">
                 <table class="table">
-                    <thead class="bg-dark text-light">
+                    <thead class="bg-primary text-light">
                         <tr>
                             <th class="py-3" width="15%" scope="col">ID</th>
                             <th class="py-3" width="40%" scope="col">Nome</th>
