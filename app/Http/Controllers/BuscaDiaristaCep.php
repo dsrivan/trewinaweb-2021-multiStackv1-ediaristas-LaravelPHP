@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Diarista;
 use App\Services\ViaCEP;
 use Illuminate\Http\Request;
 
@@ -38,6 +39,22 @@ class BuscaDiaristaCep extends Controller
         */
 
         $endereco = $viaCEP->buscar($request->cep);
-        dd($endereco['ibge']);
+        //dd($endereco['ibge']);
+
+        if (!$endereco) 
+        {
+            // em caso de resposta negativa, retorna um json com a mensagem na posição erro
+            return response()->json(['erro'=> "O CEP informado é inválido"], 400);
+        }
+        // utilizando a classe Diarista
+        //$diaristas = Diarista::buscaPorCodigoIbge($endereco['ibge']);
+        //dd($diaristas);
+
+        $diaristas = [
+            'diaristas' => Diarista::buscaPorCodigoIbge($endereco['ibge']),
+            'quantidade_diaristas' => Diarista::quantidadePorCodigoIbge($endereco['ibge'])
+        ];
+
+        return $diaristas;         
     }
 }

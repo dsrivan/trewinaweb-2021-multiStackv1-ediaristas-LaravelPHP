@@ -26,4 +26,34 @@ class Diarista extends Model
         'created_at', 
         'updated_at'
     ];
+
+    static public function buscaPorCodigoIbge(int $codigoIbge)
+    {
+        /*
+            usar a classe diarista
+            Diarista ou self
+        */
+
+        // buscar e retorna até 6 diaristas pelo código IBGE
+        return self::where('codigo_ibge', $codigoIbge)->limit(6)->get();
+    }
+    
+    static public function quantidadePorCodigoIbge(int $codigoIbge)
+    {
+        /*
+            usar a classe diarista
+            Diarista ou self
+        */
+
+        // buscar e retorna a quantidade de diaristas cadastradas com o código IBGE
+        $quantidade = self::where('codigo_ibge', $codigoIbge)->count();
+        
+        /*
+            verifica se é maior que 6
+            pois a busca primária mostra as 6 primeiras
+            isso visa a não repetição na contagem
+            fazendo parecer que tem mais do que realmente tem
+        */
+        return ($quantidade > 6) ? ($quantidade - 6) : $quantidade;
+    }
 }
