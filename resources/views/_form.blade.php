@@ -1,6 +1,12 @@
                     @csrf
                     
                     <div class="row">
+                        <div class="col-12 mb-5">
+                            <h4 class="form-label">Foto Diarista</h4>
+                            <img src="{{ url('storage/app/'.$diarista->foto_usuario) }}" alt="Foto Diarista" class="img-fluid" width="250" height="250">
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="mb-3 col-12">
                             <label for="nome_completo" class="form-label">Nome Completo</label>
                             <input type="text" value="{{ @$diarista->nome_completo }}" class="form-control" id="nome_completo" name="nome_completo" required maxlength="100">
