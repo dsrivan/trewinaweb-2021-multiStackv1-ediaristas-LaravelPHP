@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-
+    
     <!-- Material Design Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
@@ -52,7 +52,7 @@
                 <a href="{{ route('diaristas.create') }}" class="btn btn-outline-dark py-3 px-5">Nova diarista</a>
             </div>
             <div class="col-12">
-                <table class="table">
+                <table class="table table-hover">
                     <thead class="bg-primary text-light">
                         <tr>
                             <th class="py-3" width="15%" scope="col">ID</th>
@@ -68,8 +68,12 @@
                                 <td>{{ $diarista->nome_completo}}</td>
                                 <td class="tdTelefone">{{ $diarista->telefone}}</td>
                                 <td>
-                                    <a href="{{ route('diaristas.edit', $diarista->id) }}" class="btn btn-outline-primary">Editar</a>
-                                    <a onclick="return confirm('Confirme a remoção deste registro')" href="{{ route('diaristas.destroy', $diarista->id) }}" class="btn btn-outline-danger">Remover</a>
+                                    <a href="{{ route('diaristas.edit', $diarista->id) }}" class="btn btn-outline-dark" style="display: inline-flex; align-items: center; justify-content: center;" >
+                                        <span class="material-icons">edit</span>
+                                    </a>
+                                    <a onclick="return confirm('Confirme a remoção deste registro')" href="{{ route('diaristas.destroy', $diarista->id) }}" class="btn btn-outline-danger" style="display: inline-flex; align-items: center; justify-content: center;" >
+                                        <span class="material-icons">delete</span>
+                                    </a>
                                 </td>
                             </tr>
                         @empty
