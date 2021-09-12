@@ -12,10 +12,21 @@ import {
   ErrorText,
   ResponseContainer,
 } from "@styles/pages/encontrar-diarista.styled";
+import useIndex from "data/hooks/pages/useIndex.page";
 
 const EncontrarDiaristas: React.FC = () => {
   const { colors } = useTheme();
-  const [cep, setCep] = useState("");
+  const {
+    cep,
+    setCep,
+    cepValido,
+    buscarProfissionais,
+    erro,
+    diaristas,
+    buscaFeita,
+    carregando,
+    diaristasRestantes,
+  } = useIndex();
 
   return (
     <ScrollView>
@@ -39,52 +50,53 @@ const EncontrarDiaristas: React.FC = () => {
           }}
         />
 
-        <ErrorText>CEP não encontrado</ErrorText>
+        {erro ? <ErrorText>{erro}</ErrorText> : null}
 
         <Button
           mode={"contained"}
           style={{ marginTop: 32 }}
           color={colors.accent}
+          disabled={!cepValido || carregando}
+          onPress={() => buscarProfissionais(cep)}
+          loading={carregando}
         >
           Buscar
         </Button>
       </FormContainer>
 
-      <ResponseContainer>
-        <UserInformation
-          picture={"https://github.com/dsrivan.png"}
-          name={"Ivan SilvaRosa"}
-          rating={4}
-          description={"Cosmorama"}
-          darker={false}
-        />
-        <UserInformation
-          picture={"https://github.com/dsrivan.png"}
-          name={"Ivan SilvaRosa"}
-          rating={3}
-          description={"Cosmorama"}
-          darker={false}
-        />
-        <UserInformation
-          picture={"https://github.com/dsrivan.png"}
-          name={"Ivan SilvaRosa"}
-          rating={5}
-          description={"Cosmorama"}
-          darker={false}
-        />
+      {buscaFeita &&
+        (diaristas.length > 0 ? (
+          <ResponseContainer>
+            {diaristas.map((item, index) => (
+              <UserInformation
+                key={index}
+                picture={item.foto_usuario || ""}
+                name={item.nome_completo}
+                rating={item.reputacao || 0}
+                description={item.cidade}
+                darker={index % 2 === 1}
+              />
+            ))}
 
-        <TextContainer>
-          ... e mais X profissionais atendem ao seu endereço.
-        </TextContainer>
+            {diaristasRestantes > 0 && (
+              <TextContainer>
+                ... e mais {diaristasRestantes}{" "}
+                {diaristasRestantes > 1
+                  ? "profissionais atendem"
+                  : "profissional atende"}{" "}
+                ao seu endereço.
+              </TextContainer>
+            )}
 
-        <Button color={colors.accent} mode={"contained"}>
-          Contratar um profissional
-        </Button>
-
-        <TextContainer>
-          Ainda não temos nenhuma diarista disponível em sua região
-        </TextContainer>
-      </ResponseContainer>
+            <Button color={colors.accent} mode={"contained"}>
+              Contratar um profissional
+            </Button>
+          </ResponseContainer>
+        ) : (
+          <TextContainer>
+            Ainda não temos nenhuma diarista disponível em sua região
+          </TextContainer>
+        ))}
     </ScrollView>
   );
 };
